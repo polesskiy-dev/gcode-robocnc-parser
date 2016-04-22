@@ -3,7 +3,7 @@
 
 RoboCNC format is very simple, it is an array of commands containing the coordinates of where to go in steps of stepper motor.
 
-Commands:
+####Commands:
 
     1 - Go command, move spindle.
     2 - ???
@@ -13,7 +13,7 @@ Commands:
     6 - Change tool pause
 
 
-Example of command objects array:
+####Example of command objects array:
 
     [
     {Command:1, X:10000, Y:20000, Z:1600}, //1 - Go command, below - the absolute coordinates of the point.
@@ -25,7 +25,7 @@ Example of command objects array:
     {Command: 3}, //STOP. End of program, disable stepper motors hold.
     ]
 
-Stepper motor steps to other units scale factor:
+####Stepper motor steps to other units scale factor:
 
     mm: x400
     hp: x10

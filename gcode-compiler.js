@@ -2,7 +2,7 @@
  * @summary G-code parser to RoboCNC
  *
  * RoboCNC format
- * @file readme-gcode-to-robocnc.md
+ * @file readme.md
  *
  * G-code format
  * @link https://en.wikipedia.org/wiki/G-code
