@@ -3,6 +3,7 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/../gcode-parser/.idea/gcode-compiler.iml" filepath="$PROJECT_DIR$/../gcode-parser/.idea/gcode-compiler.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/robocnc-parser.iml" filepath="$PROJECT_DIR$/.idea/robocnc-parser.iml" />
     </modules>
   </component>
 </project>

@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Tests</title>
+    <script src="gcode-compiler.js"></script>
+</head>
+<body>
+<div id="textContainer">
+
+</div>
+</body>
+<script>
+    var testGCodeText = "" +
+            "    G17 G90 ; XY plane, absolute move spec\r\n" +
+            "    F500 ; Cutting speed 500 mm/min\r\n" +
+            "    G00 X10.00 Y5.00 ; Rapid move to (10,5)\r\n" +
+            "    M03 ; Start spindle\r\n" +
+            "    G04 P2.0 ; Wait 2 seconds\r\n" +
+            "    G01 Z0 ; Lower cutter\r\n" +
+            "    X30.25 Y5.00 ; Linear XY move\r\n" +
+            "    G03 X35.25 Y10.00 J5 ; CCW arc move\r\n" +
+            "    G01 X35.25 Y50.10 ; Linear move\r\n" +
+            "    G03 X30.25 Y55.10 I-5 ; CCW arc move\r\n" +
+            "    G01 X10.00 Y55.10 ; Linear move\r\n" +
+            "    G03 X5.00 Y50.10 J-5 ; CCW arc move\r\n" +
+            "    G01 X5.00 Y10.00 ; Linear move\r\n" +
+            "    G03 X10.00 Y5.00 I5 ; CCW arc move\r\n" +
+            "    G01 Z5 ; Cutter up\r\n" +
+            "    M05 ; Stop cutter\r\n" +
+            "    G00 X0 Y0 ; Rapid move back to home\r\n" +
+            "    M30 ; End of program (not actually needed)\r\n";
+
+    var parser = new gCodeParser(testGCodeText);
+    var roboCncText = JSON.stringify(parser.getRoboCNCArr());
+
+    var container = document.getElementById('textContainer');
+    container.innerHTML = roboCncText;
+
+</script>
+</html>
