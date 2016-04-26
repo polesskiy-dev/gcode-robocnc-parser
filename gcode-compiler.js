@@ -11,10 +11,6 @@
  * @author Polesskiy polesskiy.dev@gmail.com
  */
 class gCodeParser {
-    var regexp = "/^G(\d*)\s*X(\d*.?\d*)\s*Y(\d*.?\d*)\s*Z?(\d*.?\d*)\s*;";
-
-
-
     /**
      * @constructor
      * @param gCommandsText
@@ -29,8 +25,13 @@ class gCodeParser {
         if (this.gCommandsText) {
             this.gCommandsText.split('\r\n').forEach(
                 (gCodeString)=>{
+                    console.log("Parsing: " + gCodeString);
 
-                    this.roboCNCArr.push(gCodeString);
+                    //array of G code numbers
+                    var match;
+                    var gCodeNumbersArr = [];
+                    while (match=(regexp.G_CODE).exec(gCodeString)) gCodeNumbersArr.push(Number(match[1]));
+                    console.log(gCodeNumbersArr);
                 }
             )
         }
@@ -39,7 +40,6 @@ class gCodeParser {
     getRoboCNCArr(){
         return this.roboCNCArr;
     }
-
 
     /**
      * G01 Linear interpolation
@@ -53,13 +53,13 @@ class gCodeParser {
 }
 
 var regexp = {
-    G_CODE: "/G(\d+)",
-    M_CODE: "/M(\d+)",
-    X_COORDINATE:"/X(\d+.?\d*)",
-    Y_COORDINATE:"/Y(\d+.?\d*)",
-    Z_COORDINATE:"/Z(\d+.?\d*)",
-    PARAMETER:"/Z(\d+.?\d*)",
-    FEED:"/F(\d+.?\d*)"
+    G_CODE: /G(\d+)/g,
+    M_CODE: "/M(\d+)/g",
+    X_COORDINATE:"/X(\d+.?\d*)/g",
+    Y_COORDINATE:"/Y(\d+.?\d*)/g",
+    Z_COORDINATE:"/Z(\d+.?\d*)/g",
+    PARAMETER:"/Z(\d+.?\d*)/g",
+    FEED:"/F(\d+.?\d*)/g"
 };
 
 /** RoboCNC commands enum*/
@@ -78,7 +78,6 @@ var RoboCommandEnum = {
 
 /** RoboCNC command object*/
 class RoboCommandObj {
-
     /**
      * @constructor
      * @param command
