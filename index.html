@@ -3,18 +3,28 @@
 <head>
     <meta charset="UTF-8">
     <title>Tests</title>
+    <!--styles-->
+    <link rel="stylesheet" href="css/bootstrap.css">
+    <!--scripts-->
     <script src="gcode-compiler.js"></script>
 </head>
 <body>
-<div id="textContainer">
+<div class='row'>
+    <div class='col-lg-6 col-md-6 col-sm-12 col-xs-12'>
+        <div id="gCodeContainer"></div>
+    </div>
 
+    <div class='col-lg-6 col-md-6 col-sm-12 col-xs-12'>
+        <div id="resultContainer"></div>
+    </div>
 </div>
+
 </body>
 <script>
     var testGCodeText = "" +
             "    G17 G90 ; XY plane, absolute move spec\r\n" +
             "    F500 ; Cutting speed 500 mm/min\r\n" +
-            "    G00 X10.00 Y5.00 ; Rapid move to (10,5)\r\n" +
+            "    G00 X10.25 Y5.00 ; Rapid move to (10,5)\r\n" +
             "    M03 ; Start spindle\r\n" +
             "    G04 P2.0 ; Wait 2 seconds\r\n" +
             "    G01 Z0 ; Lower cutter\r\n" +
@@ -31,11 +41,47 @@
             "    G00 X0 Y0 ; Rapid move back to home\r\n" +
             "    M30 ; End of program (not actually needed)\r\n";
 
+    //parse G code text
     var parser = new gCodeParser(testGCodeText);
-    var roboCncText = JSON.stringify(parser.getRoboCNCArr());
+    var roboCNCCommandsArr = parser.getRoboCNCArr();
 
-    var container = document.getElementById('textContainer');
-    container.innerHTML = roboCncText;
+    //list from G code text
+    var gCodeContainer = document.getElementById('gCodeContainer');
+    gCodeContainer.appendChild(listFromGCodeText(testGCodeText));
+
+    //list from robo cnc commands
+    var resultContainer = document.getElementById('resultContainer');
+    resultContainer.appendChild(listFromRoboCNCArr(roboCNCCommandsArr));
+
+    /** Create html list from G codes text*/
+    function listFromGCodeText(gCodeText){
+        var gCodesList = document.createElement('ul');
+        gCodesList.className += "list-group";
+
+        gCodeText.split('\r\n').forEach((str) => {
+            var li = document.createElement('li');
+            li.className += "list-group-item";
+            li.innerText = str;
+            gCodesList.appendChild(li);
+        })
+
+        return gCodesList;
+    }
+
+    /** Create html list from RoboCNC array*/
+    function listFromRoboCNCArr(roboCNCArr){
+        var roboCNCCommandsList = document.createElement('ul');
+        roboCNCCommandsList.className += "list-group";
+
+        roboCNCArr.forEach((command)=>{
+            var li = document.createElement('li');
+            li.className += "list-group-item";
+            li.innerText = JSON.stringify(command);
+            roboCNCCommandsList.appendChild(li);
+        })
+
+        return roboCNCCommandsList;
+    }
 
 </script>
 </html>
