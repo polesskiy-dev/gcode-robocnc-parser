@@ -58,7 +58,7 @@
         var gCodesList = document.createElement('ul');
         gCodesList.className += "list-group";
 
-        gCodeText.split('\r\n').forEach((str) => {
+        gCodeText.split('\r\n').forEach(function(str){
             var li = document.createElement('li');
             li.className += "list-group-item";
             li.innerText = str;
@@ -73,12 +73,12 @@
         var roboCNCCommandsList = document.createElement('ul');
         roboCNCCommandsList.className += "list-group";
 
-        roboCNCArr.forEach((command)=>{
+        roboCNCArr.forEach(function(command){
             var li = document.createElement('li');
             li.className += "list-group-item";
             li.innerText = JSON.stringify(command);
             roboCNCCommandsList.appendChild(li);
-        })
+        });
 
         return roboCNCCommandsList;
     }
