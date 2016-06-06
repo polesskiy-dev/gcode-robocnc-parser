@@ -1,4 +1,7 @@
-##G-code to RoboCNC parser
+# G-code to RoboCNC parser
+CNC G code parser to RoboCNC codes.
+Doesn't implemented yet.
+
 ##RoboCNC format description
 
 RoboCNC format is very simple, it is an array of commands containing the coordinates of where to go in steps of stepper motor.
